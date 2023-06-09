@@ -8,10 +8,21 @@
 <div>
     <a th:href="@{/product/create}">tạo mới</a>
 </div>
-<form th:action="@{/product/search}" method="get" >
+<form th:action="@{/product/search}" method="post">
     <input type="text" th:name="name"/>
     <input type="submit" value="Search">
 </form>
+<div>
+    <form th:action="@{/product/searchByCate}" method="get">
+        <select name="cateId">
+            <option th:each="c: ${categories}" th:object="${c}" th:value="*{categoryId}"
+                    th:text="*{categoryName}">
+            </option>
+        </select>
+        <!--        <a onclick="findByCate()">Search Category</a>-->
+        <input value="searchByCate" type="submit">
+    </form>
+</div>
 <h2 style="color: blue" th:text="*{mess}"></h2>
 <table>
     <tr>
@@ -37,5 +48,11 @@
         </td>
     </tr>
 </table>
+<!--<script>-->
+<!--    function findByCate(){-->
+<!--        const cateId =document.getElementById("cate").value;-->
+<!--        document.location.href= "/product/searchByCate/" + cateId;-->
+<!--    }-->
+<!--</script>-->
 </body>
 </html>

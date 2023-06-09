@@ -74,5 +74,16 @@ public class productImp implements iProduct {
         }
         return products;
     }
+
+    @Override
+    public List<Product> findByCate(int cate) {
+        List<Product> products = new ArrayList<>();
+        for(Product c : productMap.values()){
+            if(c.getCategory().getCategoryId() == cate ){
+                products.add(c);
+            }
+        }
+        return products;
+    }
 }
 

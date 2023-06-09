@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>List product</title>
+</head>
+<body>
+<div>
+    <a th:href="@{/product_management/create}">tạo mới</a>
+</div>
+<form th:action="@{/product_management/search}" method="post">
+    <input type="text" th:name="name"/>
+    <input type="submit" value="Search">
+</form>
+<div>
+    <form th:action="@{/product_management/searchByCate}" method="get">
+        <select name="cateId">
+            <option th:each="c: ${categories}" th:object="${c}" th:value="*{categoryId}"
+                    th:text="*{categoryName}">
+            </option>
+        </select>
+        <!--        <a onclick="findByCate()">Search Category</a>-->
+        <input value="searchByCate" type="submit">
+    </form>
+</div>
+<h2 style="color: blue" th:text="*{mess}"></h2>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Category</th>
+        <th>Price</th>
+        <th>DateRelease</th>
+        <th>Quantity</th>
+        <th>Action</th>
+    </tr>
+    <tr th:each="p : ${products}" th:object="${p}">
+        <td th:text="*{id}"></td>
+        <td th:text="*{name}"></td>
+        <td th:text="*{category.categoryName}"></td>
+        <td th:text="*{#numbers.formatCurrency(price)}"></td>
+        <td th:text="*{#dates.format(dateRelease,'dd/MM/yyyy')}"></td>
+        <td th:text="*{quantity}"></td>
+        <td>
+            <a th:href="@{/product_management/detail/{id}(id=*{id})}">Detail</a>
+            <a th:href="@{/product_management/update/{id}(id=*{id})}">Update</a>
+            <a th:href="@{/product_management/delete(id=*{id})}">Delete</a>
+        </td>
+    </tr>
+</table>
+<!--<script>-->
+<!--    function findByCate(){-->
+<!--        const cateId =document.getElementById("cate").value;-->
+<!--        document.location.href= "/product/searchByCate/" + cateId;-->
+<!--    }-->
+<!--</script>-->
+</body>
+</html>

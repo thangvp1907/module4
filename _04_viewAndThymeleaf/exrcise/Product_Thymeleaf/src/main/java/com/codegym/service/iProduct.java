@@ -17,4 +17,6 @@ public interface iProduct {
 
     List<Product> findByName(String name);
 
+    List<Product> findByCate(int cate);
+
 }
