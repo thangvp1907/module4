@@ -4,10 +4,17 @@ import com.codegym.Entity.Music;
 import com.codegym.Repository.iRepositoryMusic;
 import com.codegym.Service.iServiceMusic;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
+
 @Service
-public class serviceMusicImpl  implements iServiceMusic {
+public class serviceMusicImpl implements iServiceMusic {
     private final iRepositoryMusic repositoryMusic;
 
     public serviceMusicImpl(iRepositoryMusic repositoryMusic) {
@@ -32,5 +39,16 @@ public class serviceMusicImpl  implements iServiceMusic {
     @Override
     public void delete(int id) {
         repositoryMusic.deleteById(id);
+    }
+
+    @Override
+    public void write(MultipartFile file, Path dir) {
+        Path filepath = Paths.get(dir.toString(), file.getOriginalFilename());
+
+        try (OutputStream os = Files.newOutputStream(filepath)) {
+            os.write(file.getBytes());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

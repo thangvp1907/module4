@@ -1,10 +1,5 @@
 package com.codegym.Entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.Value;
-
 import javax.persistence.*;
 
 @Entity
@@ -25,11 +20,28 @@ public class Music {
     private String link;
 
     @Column(name = "nghe_nhac", columnDefinition = "varchar(50)")
-    @Value("${file}")
     private String play;
 
     public Music() {
 
+    }
+
+    public Music(MusicForm musicForm) {
+        idMusic = musicForm.getIdMusic();
+        nameMusic = musicForm.getNameMusic();
+        nameSinger = musicForm.getNameSinger();
+        typeMusic = musicForm.getTypeMusic();
+        link = musicForm.getLink();
+        play = musicForm.getPlay().getOriginalFilename();
+    }
+
+    public Music(Integer idMusic, String nameMusic, String nameSinger, String typeMusic, String link, String play) {
+        this.idMusic = idMusic;
+        this.nameMusic = nameMusic;
+        this.nameSinger = nameSinger;
+        this.typeMusic = typeMusic;
+        this.link = link;
+        this.play = play;
     }
 
     public Integer getIdMusic() {

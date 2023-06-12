@@ -2,6 +2,7 @@ package com.codegym.Config;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.MessageSource;
@@ -42,6 +43,8 @@ import java.util.Properties;
 @PropertySource("classpath:upload_file.properties")
 public class AppConfiguration extends WebMvcConfigurerAdapter implements ApplicationContextAware {
     private ApplicationContext applicationContext;
+    @Value("${file-upload}")
+    private String fileUpload;
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         this.applicationContext = applicationContext;
@@ -91,6 +94,7 @@ public class AppConfiguration extends WebMvcConfigurerAdapter implements Applica
         return messageSource;
     }
 
+    //Cấu hình upload file
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/music/**")
