@@ -3,15 +3,13 @@ package com.codegym.Service.imp;
 import com.codegym.Entity.Blog;
 import com.codegym.Repository.IRepository;
 import com.codegym.Service.IService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class ServiceImp implements IService {
-    private final IRepository repository;
-
+    final IRepository repository;
 
     public ServiceImp(IRepository repository) {
         this.repository = repository;
@@ -25,7 +23,7 @@ public class ServiceImp implements IService {
 
     @Override
     public boolean update(Blog blog) {
-        if(repository.existsById(blog.getId())){
+        if (repository.existsById(blog.getId())) {
             repository.save(blog);
             return true;
         }
@@ -34,7 +32,7 @@ public class ServiceImp implements IService {
 
     @Override
     public boolean deleteById(int id) {
-        if(repository.existsById(id)){
+        if (repository.existsById(id)) {
             repository.deleteById(id);
             return true;
 
