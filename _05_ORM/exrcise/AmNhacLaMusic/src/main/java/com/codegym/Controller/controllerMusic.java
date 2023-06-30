@@ -15,6 +15,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
 @Controller
 @RequestMapping("/list_music")
@@ -42,7 +43,7 @@ public class controllerMusic {
     }
 
     @PostMapping("/create")
-    public String doCreate(@ModelAttribute("musicForm") MusicForm musicForm, RedirectAttributes redirectAttributes) {
+    public String doCreate(@ModelAttribute("musicForm") MusicForm musicForm, RedirectAttributes redirectAttributes) throws IOException {
         MultipartFile multipartFile = musicForm.getPlay();
         String fileName = multipartFile.getOriginalFilename();
         try {

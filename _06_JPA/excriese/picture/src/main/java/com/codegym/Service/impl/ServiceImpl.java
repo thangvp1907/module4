@@ -4,6 +4,7 @@ import com.codegym.Entity.Picture;
 import com.codegym.Repository.IRepository;
 import com.codegym.Service.IService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -49,4 +50,6 @@ public class ServiceImpl implements IService {
         }
         return true;
     }
+
+
 }

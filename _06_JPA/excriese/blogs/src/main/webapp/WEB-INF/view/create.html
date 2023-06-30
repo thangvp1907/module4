@@ -18,6 +18,16 @@
         </tr>
 
         <tr>
+            <td>Category</td>
+            <td>
+                <select th:field="*{category.idCategory}">
+                    <option th:each="c: ${categories}" th:value="${c.idCategory}"
+                            th:text="${c.nameCategory}"></option>
+                </select>
+            </td>
+        </tr>
+
+        <tr>
             <td>Name of Blog</td>
             <td><input th:field="*{name}"></td>
         </tr>

@@ -43,8 +43,7 @@ public class serviceMusicImpl implements iServiceMusic {
 
     @Override
     public void write(MultipartFile file, Path dir) {
-        Path filepath = Paths.get(dir.toString(), file.getOriginalFilename());
-
+        Path filepath = Paths.get(dir.toString());
         try (OutputStream os = Files.newOutputStream(filepath)) {
             os.write(file.getBytes());
         } catch (IOException e) {

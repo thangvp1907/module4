@@ -20,6 +20,7 @@ public interface iServiceMusic {
     void create(Music music);
 
     void delete(int id);
+
     void write(MultipartFile file, Path dir);
 
 }
