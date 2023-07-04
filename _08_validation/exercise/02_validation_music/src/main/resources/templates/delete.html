@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head">
+    <meta charset="UTF-8">
+    <title>Delete</title>
+</head>
+<body>
+<h2>Delete Music</h2>
+<p>
+    <a th:href="@{/music}">Back to Blogs list</a>
+</p>
+<div id="form">
+    <form action="/music/delete" th:object="${musicList}"
+          method="POST" novalidate="novalidate">
+        <div>
+            <input type="hidden"  th:field="*{id}"/>
+        </div>
+        <div>
+            <label>Creator Blog</label>
+            <input type="text" th:field="*{musicName}"/>
+        </div>
+        <div>
+            <label>Name Blog</label>
+            <input type="text" th:field="*{singerName}"/>
+        </div>
+        <div>
+            <label>Date Created</label>
+            <input type="text" th:field="*{category}"/>
+        </div>
+        <input type="submit" value="Delete"/>
+    </form>
+</div>
+<footer th:replace="layout :: footer"></footer>
+</body>
+</html>
