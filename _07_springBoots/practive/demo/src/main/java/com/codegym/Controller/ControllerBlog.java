@@ -57,7 +57,7 @@ public class ControllerBlog {
     }
 
     @PostMapping("/create")
-    public String doCreate(@Validated @ModelAttribute("blog") Blog blog, BindingResult bindingResult, Model model,User user,HttpSession httpSession) throws ParseException {
+    public String doCreate(@Validated @ModelAttribute("blog") Blog blog, BindingResult bindingResult, Model model) throws ParseException {
         new Blog().validate(blog,bindingResult);
         if(bindingResult.hasFieldErrors()){
             model.addAttribute("category", serviceCategory.findAll());

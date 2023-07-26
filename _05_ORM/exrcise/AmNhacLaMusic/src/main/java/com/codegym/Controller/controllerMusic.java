@@ -58,8 +58,9 @@ public class controllerMusic {
     }
 
     @GetMapping("/delete/{id}")
-    public String delete(@PathVariable("id") int id) {
+    public String delete(@PathVariable("id") int id,RedirectAttributes redirectAttributes) {
         serviceMusic.delete(id);
+        redirectAttributes.addFlashAttribute("mess","xóa thành công");
         return "redirect:/list_music";
     }
 

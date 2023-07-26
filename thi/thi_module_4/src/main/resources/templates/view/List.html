@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh Sách Sân Bóng</title>
+    <link rel="stylesheet" href="/List.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+</head>
+<body>
+<H1>DANH SÁCH SẢN PHẨM</H1>
+<h2 style="color: blue" th:text="*{mess}"></h2>
+<h3>
+    <a th:href="@{/Home/Create}">Tạo mới sản phẩm</a>
+</h3>
+<form th:action="@{/Home/Search}" method="get">
+  <span>Name</span>: <input type="text" name="name" th:value="${name != null ? name: ''}">
+  <input type="submit" value="Search">
+</form>
+
+<form th:action="@{/Home/SearchPrice}" method="get">
+    <span>Price</span>: <input type="text" name="price" th:value="${price != null ? price: ''}">
+    <input type="submit" value="Search">
+</form>
+
+<form th:action="@{/Home/SearchCategory}" method="get">
+  <span>Address:</span>
+  <select name="id" th:value="${id != null ? id: ''}">
+    <option th:each="a : ${Category}" th:value="${a.id}" th:text="${a.nameCategory}"></option>
+  </select>
+  <button type="submit">Search</button>
+</form>
+<div class="table_responsive">
+    <table>
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Tên Sản phẩm:</th>
+            <th>Giá:</th>
+            <th>Loại Sản phẩm</th>
+            <th>Tình trạng:</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+
+
+        <tbody>
+        <tr th:each="p : ${Product}" th:object="${p}">
+            <td th:text="*{id}"></td>
+            <td th:text="*{nameProduct}"></td>
+            <td th:text="*{#numbers.formatCurrency(price)}"></td>
+            <td th:text="*{category.nameCategory}"></td>
+            <td th:text="*{status}"></td>
+            <td>
+            <span class="action_btn">
+              <a th:href="@{/Home/Edit/{id}(id=*{id})}">Edit</a>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                        th:data-bs-target="'#'+|p${p.id}|">
+                    Delete
+                </button>
+            </span>
+            </td>
+
+            <div class="modal fade" th:id="|p${p.id}|" tabindex="-1" aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Bạn Có Muốn Xóa <span th:text="${p.nameProduct}"></span> không ? </p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <a th:href="@{/Home/Delete/{id}(id=*{id})}">
+                                Delete
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<!--<div id="page">-->
+<!--    <a th:href="@{'/Home/List'(page=${(Product.number)-1})}" th:if="${Product.hasPrevious()}">Previous</a>-->
+<!--    <a th:if="${Product.hasNext()}" th:href="@{@{/Home/SearchCategory(page=${Product.number + 1}, size=${Product.size}, id=${id})}">Next</a>-->
+<!--    <span th:each="i : ${#numbers.sequence(1,Product.getTotalPages())}">-->
+<!--    <a th:if="${i != Product.number}" th:href="@{/Home/SearchCategory(page=${Product.number + 1}, size=${Product.size}, id=${id})}" th:text="${i}" ></a>-->
+<!--    <p th:unless="${i !=  Product.number}">[[${i}]]</p>-->
+<!--</span>-->
+<!--</div>-->
+
+
+<!-- Hiển thị phân trang -->
+<div id="pagination">
+    <ul class="pagination">
+        <!-- Thêm tham số tìm kiếm vào URL của các liên kết phân trang -->
+        <li th:class="${Product.first} ? disabled">
+            <a th:if="${!Product.first}" th:href="@{/Home/List(page=0, size=${Product.size}, name=${name}, price=${price}, id=${id})}" aria-label="First">
+                <span aria-hidden="true">&laquo;&laquo;</span>
+            </a>
+        </li>
+        <li th:class="${Product.first} ? disabled">
+            <a th:if="${!Product.first}" th:href="@{/Home/List(page=${Product.number - 1}, size=${Product.size}, name=${name}, price=${price}, id=${id})}" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        <li th:class="${Product.last} ? disabled">
+            <a th:if="${!Product.last}" th:href="@{/Home/List(page=${Product.number + 1}, size=${Product.size}, name=${name}, price=${price}, id=${id})}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+        <li th:class="${Product.last} ? disabled">
+            <a th:if="${!Product.last}" th:href="@{/Home/List(page=${Product.totalPages - 1}, size=${Product.size}, name=${name}, price=${price}, id=${id})}" aria-label="Last">
+                <span aria-hidden="true">&raquo;&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+
+
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
+</html>

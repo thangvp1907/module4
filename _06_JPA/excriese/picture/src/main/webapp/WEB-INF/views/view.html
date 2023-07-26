@@ -13,6 +13,8 @@
 </head>
 <body>
 <img id="img-of-the-day">
+
+
 <form th:action="@{/saveComment}" method="post" th:object="${picture}">
     <select th:field="*{rating}">
         <option th:value="1">1 sao</option>

@@ -43,7 +43,7 @@ public class ControllerBorrow {
     public ModelAndView oder(@PathVariable Integer id) throws Exception {
         Book book = iBookService.findById(id).get();
         if (book.getCount() == 0) {
-            throw new Exception();
+            return new ModelAndView("Error");
         }
 
         book.setCount(book.getCount() - 1);

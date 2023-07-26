@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh sách đã Order</title>
+    <link rel="stylesheet" href="/List.css">
+</head>
+<body>
+<h1>Danh SÁCH SÂN ĐÃ ĐẶT</h1>
+<div class="table_responsive">
+    <table>
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Tên Sân:</th>
+            <th>Địa Điểm:</th>
+            <th>Tên Khách:</th>
+            <th>Số Điện Thoại</th>
+            <th>Thời gian:</th>
+            <th>Giá tiền:</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="c : ${client}" th:object="${c}">
+            <td th:text="*{id}"></td>
+            <td th:text="*{footballPitches.getNamePitches()}"></td>
+            <td th:text="*{footballPitches.address.getNameAddress()}"></td>
+            <td th:text="*{nameClient}"></td>
+            <td th:text="*{numberPhone}"></td>
+            <td th:text="*{footballPitches.time.getTime()}"></td>
+            <td th:text="*{footballPitches.time.getPrice()}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <tr>
+            <span class="action_btn">
+              <a th:href="@{/Home/List}">Back</a></span>
+    </tr>
+</div>
+</body>
+</html>
